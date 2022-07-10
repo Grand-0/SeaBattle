@@ -1,9 +1,9 @@
-﻿using API.Models;
+﻿using API.Models.Users;
 
 namespace API.Identity
 {
     public interface IJwtGenerator
     {
-        string CreateToken(User user);
+        string CreateToken(UserBase user);
     }
 }

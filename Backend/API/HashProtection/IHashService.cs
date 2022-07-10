@@ -6,6 +6,6 @@ namespace API.HashProtection
     public interface IHashService
     {
         Hash HashPassword(string password);
-        bool isHashEquals(string password, Guid individualSalt, byte[] userHashPassword);
+        bool isHashEquals(string password, Guid individualSalt, string userHashPassword);
     }
 }

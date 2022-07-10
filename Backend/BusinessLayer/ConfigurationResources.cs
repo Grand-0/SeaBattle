@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessLayer.Profiles;
 using BusinessLayer.Services.UserService;
 using DataAcessLayer.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,7 @@ namespace BusinessLayer
 
         public static void RegistrationMapperConfiguration(IMapperConfigurationExpression config)
         {
-
+            config.AddProfile(new UserProfile());
         }
     }
 }

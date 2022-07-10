@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ZUb7no5NR8baF8c+qCCBVgTkJIht9eNwfk1QP5TfVakPwuna2LVdJaFOdnzvNDj2eHuXDR9nfe/fahfjZivT7A==",
+  "dgSpecHash": "NtDqODVgzCvK+ezrNjbReTPrXt4yR+u9i2lcDG8rO6JuOTT2mkXfXzvUTQFWbBxUg/ezBIWcnSqJlM7S3Wm0JA==",
   "success": true,
   "projectFilePath": "C:\\Progects\\SeaBattle\\Backend\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fomov\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\fomov\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\fomov\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\fomov\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.16\\microsoft.aspnetcore.authentication.jwtbearer.5.0.16.nupkg.sha512",
     "C:\\Users\\fomov\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\fomov\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

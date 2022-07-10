@@ -1,0 +1,17 @@
+C:\Progects\SeaBattle\Backend\BusinessLayer\bin\Debug\net5.0\BusinessLayer.deps.json
+C:\Progects\SeaBattle\Backend\BusinessLayer\bin\Debug\net5.0\BusinessLayer.dll
+C:\Progects\SeaBattle\Backend\BusinessLayer\bin\Debug\net5.0\ref\BusinessLayer.dll
+C:\Progects\SeaBattle\Backend\BusinessLayer\bin\Debug\net5.0\BusinessLayer.pdb
+C:\Progects\SeaBattle\Backend\BusinessLayer\bin\Debug\net5.0\DataAcessLayer.dll
+C:\Progects\SeaBattle\Backend\BusinessLayer\bin\Debug\net5.0\DataAcessLayer.pdb
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\BusinessLayer.csproj.AssemblyReference.cache
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\BusinessLayer.AssemblyInfoInputs.cache
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\BusinessLayer.AssemblyInfo.cs
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\BusinessLayer.csproj.CopyComplete
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\BusinessLayer.dll
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\ref\BusinessLayer.dll
+C:\Progects\SeaBattle\Backend\BusinessLayer\obj\Debug\net5.0\BusinessLayer.pdb
+C:\Progects\SeaBattle\Backend\BusinessLayer\bin\Debug\net5.0\SqlHelperLib.dll
+C:\Progects\SeaBattle\Backend\BusinessLayer\bin\Debug\net5.0\SqlHelperLib.pdb

@@ -9,9 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 using System.Threading.Tasks;
-using BusinessLayer;
+using ConfigurationResourcesBL = BusinessLayer.ConfigurationResources;
+using API.Resources;
+using Microsoft.AspNetCore.Http.Connections;
+using System.Text;
 
 namespace API
 {
@@ -27,35 +29,45 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IJwtGenerator, JwtGenerator>();
-            services.AddScoped<IHashService, HashService>();
+            services.AddSingleton<UserStore<string>>();
+            services.AddScoped<IHashService, BCryptHashService>();
 
             services.AddAutoMapper(cnf => {
-                
+                ConfigurationResourcesBL.RegistrationMapperConfiguration(cnf);
             });
 
-            ConfigurationResources.RegistrationServices(services, Configuration.GetConnectionString("DefaultConnection"));
+            ConfigurationResourcesBL.RegistrationServices(services, Configuration.GetConnectionString("DefaultConnection"));
 
             services.AddCors(c => c.AddPolicy("LocalEnviroment", policy =>
             {
                 policy.WithOrigins("http://localhost:3000")
                       .AllowAnyHeader()
+                      .AllowCredentials()
                       .AllowAnyMethod();
             }));
 
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services
+                .AddAuthentication(opt => {
+                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(opt =>
                 {
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
-
                     opt.RequireHttpsMetadata = false;
+
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
 
                     opt.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = key,
                         ValidateIssuer = true,
                         ValidIssuer = JwtUserSettings.Issuer,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = key,
+                        ValidateAudience = true,
+                        ValidAudience = JwtUserSettings.Audience,
                     };
 
                     opt.Events = new JwtBearerEvents
@@ -66,10 +78,22 @@ namespace API
 
                             var path = context.HttpContext.Request.Path;
                             if (!string.IsNullOrEmpty(accessToken) &&
-                                (path.StartsWithSegments("/menu")))
+                                (path.StartsWithSegments("/hubs")))
                             {
                                 context.Token = accessToken;
                             }
+                            return Task.CompletedTask;
+                        },
+
+                        OnTokenValidated = context =>
+                        {
+                            var te = context.SecurityToken;
+                            return Task.CompletedTask;
+                        },
+
+                        OnAuthenticationFailed = context =>
+                        {
+                            var te = context.Result;
                             return Task.CompletedTask;
                         }
                     };
@@ -105,7 +129,10 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<MenuHub>("/menu");
+
+                endpoints.MapHub<MenuHub>("/hubs/menu", opt => {
+                    opt.Transports = HttpTransportType.WebSockets; 
+                });
             });
         }
     }

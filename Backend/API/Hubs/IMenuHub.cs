@@ -5,6 +5,8 @@ namespace API.Hubs
 {
     public interface IMenuHub
     {
-        Task OnlineUsers(List<string> users);
+        Task ShowOnlineUsers(List<string> users);
+        Task MakeRequestWindow(string sender, string recipient);
+        Task MoveToSession(string sessionId);
     }
 }

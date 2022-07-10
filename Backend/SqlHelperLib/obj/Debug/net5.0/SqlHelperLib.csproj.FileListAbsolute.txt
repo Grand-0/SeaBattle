@@ -1,0 +1,12 @@
+C:\Progects\SeaBattle\Backend\SqlHelperLib\bin\Debug\net5.0\SqlHelperLib.deps.json
+C:\Progects\SeaBattle\Backend\SqlHelperLib\bin\Debug\net5.0\SqlHelperLib.dll
+C:\Progects\SeaBattle\Backend\SqlHelperLib\bin\Debug\net5.0\ref\SqlHelperLib.dll
+C:\Progects\SeaBattle\Backend\SqlHelperLib\bin\Debug\net5.0\SqlHelperLib.pdb
+C:\Progects\SeaBattle\Backend\SqlHelperLib\obj\Debug\net5.0\SqlHelperLib.csproj.AssemblyReference.cache
+C:\Progects\SeaBattle\Backend\SqlHelperLib\obj\Debug\net5.0\SqlHelperLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Progects\SeaBattle\Backend\SqlHelperLib\obj\Debug\net5.0\SqlHelperLib.AssemblyInfoInputs.cache
+C:\Progects\SeaBattle\Backend\SqlHelperLib\obj\Debug\net5.0\SqlHelperLib.AssemblyInfo.cs
+C:\Progects\SeaBattle\Backend\SqlHelperLib\obj\Debug\net5.0\SqlHelperLib.csproj.CoreCompileInputs.cache
+C:\Progects\SeaBattle\Backend\SqlHelperLib\obj\Debug\net5.0\SqlHelperLib.dll
+C:\Progects\SeaBattle\Backend\SqlHelperLib\obj\Debug\net5.0\ref\SqlHelperLib.dll
+C:\Progects\SeaBattle\Backend\SqlHelperLib\obj\Debug\net5.0\SqlHelperLib.pdb

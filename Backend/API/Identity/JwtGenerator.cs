@@ -1,4 +1,4 @@
-﻿using API.Models;
+﻿using API.Models.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -17,21 +17,25 @@ namespace API.Identity
 			_key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
-		public string CreateToken(User user)
+		public string CreateToken(UserBase user)
         {
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
 			var claims = new ClaimsIdentity();
 
 			claims.AddClaim(new Claim("Name", user.Login));
-			claims.AddClaim(new Claim("Identificator", user.Id.ToString()));
+			claims.AddClaim(new Claim("Email", user.Email));
+
+			var time = DateTime.UtcNow;
 
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(claims),
-				Expires = DateTime.Now.AddDays(7),
+				NotBefore = time,
+				Expires = time.Add(TimeSpan.FromHours(JwtUserSettings.LifeTime)),
 				SigningCredentials = credentials,
-				Issuer = JwtUserSettings.Issuer
+				Issuer = JwtUserSettings.Issuer,
+				Audience = JwtUserSettings.Audience,
 			};
 
 			var tokenHandler = new JwtSecurityTokenHandler();
