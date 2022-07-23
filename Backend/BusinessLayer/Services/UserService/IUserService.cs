@@ -12,12 +12,9 @@ namespace BusinessLayer.Services.UserService
         void CreateUser(ReducedUser user);
         ReducedUser GetUserByLogin(string login);
         int GetUserIdByLogin(string login);
-        void UpdateUser(UpdatedUser user);
         void UpdateUserEmail(int id, string email);
         void UpdateUserLogin(int id, string login);
         void UpdateUserLogo(int id, string pathToLogo);
         void UpdateUserLoginAndEmail(int id, string login, string email);
-        void UpdateUserLoginAndLogo(int id, string login, string pathToLogo);
-        void UpdateUserEmailAndLogo(int id, string email, string pathToLogo);
     }
 }

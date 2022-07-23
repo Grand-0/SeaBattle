@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using API.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using FileResult = API.Models.FileModel;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
@@ -18,7 +18,7 @@ namespace API.Helpers
             _cnf = cnf;
         }
 
-        public async Task<FileResult> GetResource(string path)
+        public string GetResource(string path)
         {
             if (path == null)
             {
@@ -28,19 +28,21 @@ namespace API.Helpers
             string storagePath = _cnf["FileStorage:UserProfiles:Path"];
             string fullPath = Path.Combine(_env.ContentRootPath, storagePath, path);
 
-            byte[] content = await File.ReadAllBytesAsync(fullPath);
-            string type = "application/" + Path.GetExtension(fullPath);
-            string name = Path.GetFileNameWithoutExtension(fullPath);
-
-            return new FileResult { Content = content, Type = type, Name = name };
+            return fullPath;
         }
 
-        public async Task<string> SaveResource(IFormFile file, string userLogin)
+        public async Task<FilePathResult> SaveResource(IFormFile file, string userLogin)
         {
             string path = _cnf["FileStorage:UserProfiles:Path"];
-            string localPath = Path.Combine(userLogin, Path.GetRandomFileName());
-
+            string extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            string localPath = Path.Combine(userLogin, userLogin + "Logo" + extension);
+            string directoryPath = Path.Combine(_env.ContentRootPath, path, userLogin);
             string fullPath = Path.Combine(_env.ContentRootPath, path, localPath);
+
+            if(!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
 
             if (File.Exists(fullPath))
             {
@@ -52,7 +54,7 @@ namespace API.Helpers
                 await file.CopyToAsync(stream);
             }
 
-            return localPath;
+            return new FilePathResult { LocalPath = localPath, FullPath = fullPath };
         }
 
         public bool IsResourceValid(IFormFile file)

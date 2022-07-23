@@ -2,17 +2,15 @@
 using API.Models.Users;
 using AutoMapper;
 using BusinessLayer.Exceptions;
-using BusinessLayer.Models;
 using BusinessLayer.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using UpdatedUserAPI = API.Models.Users.UpdatedUser;
-using UpdatedUserBAL = BusinessLayer.Models.UpdatedUser;
 
 namespace API.Controllers
 {
@@ -43,7 +41,7 @@ namespace API.Controllers
             {
                 var user = _mapper.Map<FullUser>(_userService.GetUserWithStatisticById(id));
                 var resourceHelper = new LocalResourceHelper(_env, _cnf);
-                var file = await resourceHelper.GetResource(user.LogoPath);
+                var file = resourceHelper.GetResource(user.LogoPath);
                 var responseUser = new UserResponse
                 {
                     Login = user.Login,
@@ -62,39 +60,25 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> User(int id, [FromBody] UpdatedUserAPI updatedUser)
+        public async Task<IActionResult> User(int id, UserBase updateData)
         {
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("{id}/img")]
+        public async Task<IActionResult> User(int id, IFormFile file)
+        {
+            var t = HttpContext.Request.Headers["Authorization"];
             try
             {
-                ReducedUser user = _userService.GetUserById(id);
-                
-                if (user == null)
-                {
-                    return NotFound(new { message = "User profile not found" });
-                }
-
-                LocalResourceHelper resourceHelper = new LocalResourceHelper(_env, _cnf);
-
-                if (!resourceHelper.IsResourceValid(updatedUser.Logo))
-                {
-                    return BadRequest(new { message = "The file exceeds the allowed size of 100 kilobytes" });
-                }
-
-                string path = await resourceHelper.SaveResource(updatedUser.Logo, updatedUser.Login);
-
-                UpdatedUserBAL userBAL = new UpdatedUserBAL
-                {
-                    Id = id,
-                    Login = updatedUser.Login,
-                    Email = updatedUser.Email,
-                    PathToLogo = path
-                };
-
-                _userService.UpdateUser(userBAL);
-
+                string userLogin = _userService.GetUserById(id).Login;
+                LocalResourceHelper helper = new LocalResourceHelper(_env, _cnf);
+                var path = await helper.SaveResource(file, userLogin);
+                _userService.UpdateUserLogo(id, path.LocalPath);
                 return Ok();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return BadRequest();
             }

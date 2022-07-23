@@ -113,16 +113,10 @@
       "System.Security.Principal.Windows/4.7.0": {},
       "DataAcessLayer/1.0.0": {
         "dependencies": {
-          "SqlHelperLib": "1.0.0",
           "System.Data.SqlClient": "4.8.3"
         },
         "runtime": {
           "DataAcessLayer.dll": {}
-        }
-      },
-      "SqlHelperLib/1.0.0": {
-        "runtime": {
-          "SqlHelperLib.dll": {}
         }
       }
     }
@@ -218,11 +212,6 @@
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
     },
     "DataAcessLayer/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "SqlHelperLib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

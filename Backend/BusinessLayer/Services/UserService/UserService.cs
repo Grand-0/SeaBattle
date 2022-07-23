@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLayer.Exceptions;
 using BusinessLayer.Models;
-using UpdatedFullUserDAL = DataAcessLayer.Models.UserModels.UpdatedFullUser;
 using DataAcessLayer.Repositories;
 using System;
 using ReducedUserDAL = DataAcessLayer.Models.UserModels.ReducedUser;
@@ -89,11 +88,6 @@ namespace BusinessLayer.Services.UserService
             return (int)id;
         }
 
-        public void UpdateUser(UpdatedUser user)
-        {
-            _databaseContext.UserRepository.UpdateFullUser(_mapper.Map<UpdatedFullUserDAL>(user));
-        }
-
         public void UpdateUserEmail(int id, string email)
         {
             _databaseContext.UserRepository.UpdateEmail(id, email);
@@ -112,16 +106,6 @@ namespace BusinessLayer.Services.UserService
         public void UpdateUserLoginAndEmail(int id, string login, string email)
         {
             _databaseContext.UserRepository.UpdateLoginAndEmail(id, login, email);
-        }
-
-        public void UpdateUserLoginAndLogo(int id, string login, string pathToLogo)
-        {
-            _databaseContext.UserRepository.UpdateLoginAndLogo(id, login, pathToLogo);
-        }
-
-        public void UpdateUserEmailAndLogo(int id, string email, string pathToLogo)
-        {
-            _databaseContext.UserRepository.UpdateEmailAndLogo(id, email, pathToLogo);
         }
     }
 }

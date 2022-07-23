@@ -675,7 +675,6 @@
       },
       "DataAcessLayer/1.0.0": {
         "dependencies": {
-          "SqlHelperLib": "1.0.0",
           "System.Data.SqlClient": "4.8.3"
         },
         "runtime": {
@@ -683,14 +682,6 @@
         },
         "compile": {
           "DataAcessLayer.dll": {}
-        }
-      },
-      "SqlHelperLib/1.0.0": {
-        "runtime": {
-          "SqlHelperLib.dll": {}
-        },
-        "compile": {
-          "SqlHelperLib.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -2605,11 +2596,6 @@
       "sha512": ""
     },
     "DataAcessLayer/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "SqlHelperLib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

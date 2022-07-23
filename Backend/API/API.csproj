@@ -21,4 +21,9 @@
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="StaticResources\Users\" />
+    <Folder Include="StaticResources\Users\Dima\" />
+  </ItemGroup>
+
 </Project>

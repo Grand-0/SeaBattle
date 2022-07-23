@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "M35jOc1soIihQFaedjWxoyaoRe3J0x9mh5jxGDqZZwiH90DfwdpgGuMA1GLYNPoX+G4VKC7lPeoIaZknQCaMJg==",
+  "dgSpecHash": "FCIwsi9oG2NKli5Dg0i0GSJ/GEk6DTPzA8bTXzcZD4k78uGK8MfUit0OomrzSQ40KIZezteYap+HTHM3nNhl2w==",
   "success": true,
-  "projectFilePath": "C:\\Progects\\SeaBattle\\Backend\\GameLib\\GameLib.csproj",
+  "projectFilePath": "D:\\Progects\\SeaBattle\\Backend\\GameLib\\GameLib.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

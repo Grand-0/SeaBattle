@@ -103,13 +103,5 @@ namespace API.Controllers
                 return Unauthorized(ex.Message);
             }
         }
-
-        [HttpGet("Test")]
-        public async Task<IActionResult> Test()
-        {
-            _userService.Test();
-
-            return Ok();
-        }
     }
 }

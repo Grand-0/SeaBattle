@@ -347,44 +347,6 @@ namespace DataAcessLayer.Repositories.UserRepository
             return userId;
         }
 
-        public void UpdateFullUser(UpdatedFullUser user)
-        {
-            using (SqlConnection connection = new SqlConnection(_sqlConnectionString))
-            {
-                connection.Open();
-
-                SqlCommand cmd = new SqlCommand("UpdateFullUser", connection);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddRange(new SqlParameter[]
-                {
-                    new SqlParameter
-                    {
-                        ParameterName = "@ID",
-                        Value = user.UserId,
-                    },
-                    new SqlParameter
-                    {
-                        ParameterName = "@Login",
-                        Value = user.Login,
-                    },
-                    new SqlParameter
-                    {
-                        ParameterName = "@Email",
-                        Value = user.Email,
-                    },
-                    new SqlParameter
-                    {
-                        ParameterName = "@PathToLogo",
-                        Value = user.PathToLogo
-                    }
-                });
-
-
-                cmd.ExecuteNonQuery();
-            }
-        }
-
         public void UpdateLoginAndEmail(int id, string login, string email)
         {
             using (SqlConnection connection = new SqlConnection(_sqlConnectionString))
@@ -409,68 +371,6 @@ namespace DataAcessLayer.Repositories.UserRepository
                     {
                         ParameterName = "@Email",
                         Value = email,
-                    }
-                });
-
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public void UpdateLoginAndLogo(int id, string login, string pathToLogo)
-        {
-            using (SqlConnection connection = new SqlConnection(_sqlConnectionString))
-            {
-                connection.Open();
-
-                SqlCommand cmd = new SqlCommand("UpdateUserLoginAndLogo", connection);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddRange(new SqlParameter[] {
-                    new SqlParameter
-                    {
-                        ParameterName = "@ID",
-                        Value = id,
-                    },
-                    new SqlParameter
-                    {
-                        ParameterName = "@Login",
-                        Value = login,
-                    },
-                    new SqlParameter
-                    {
-                        ParameterName = "@PathToLogo",
-                        Value = pathToLogo,
-                    }
-                });
-
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public void UpdateEmailAndLogo(int id, string email, string pathToLogo)
-        {
-            using (SqlConnection connection = new SqlConnection(_sqlConnectionString))
-            {
-                connection.Open();
-
-                SqlCommand cmd = new SqlCommand("UpdateUserEmailAndLogo", connection);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddRange(new SqlParameter[] {
-                    new SqlParameter
-                    {
-                        ParameterName = "@ID",
-                        Value = id,
-                    },
-                    new SqlParameter
-                    {
-                        ParameterName = "@Email",
-                        Value = email,
-                    },
-                    new SqlParameter
-                    {
-                        ParameterName = "@PathToLogo",
-                        Value = pathToLogo,
                     }
                 });
 
