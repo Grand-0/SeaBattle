@@ -1,5 +1,6 @@
 ﻿using DataAcessLayer.Models.UserModels;
 using System;
+using System.Collections.Generic;
 
 namespace DataAcessLayer.Repositories.UserRepository
 {
@@ -17,5 +18,6 @@ namespace DataAcessLayer.Repositories.UserRepository
         void UpdateLogin(int Id, string login);
         void UpdateEmail(int Id, string email);
         void UpdateLogo(int Id, string pathToLogo);
+        List<UserProfile> GetUserProfiles(List<int> ids);
     }
 }

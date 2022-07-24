@@ -23,9 +23,10 @@ namespace API.Identity
 
 			var claims = new ClaimsIdentity();
 
+			claims.AddClaim(new Claim("UniqueId", user.Id.ToString()));
 			claims.AddClaim(new Claim("Name", user.Login));
 			claims.AddClaim(new Claim("Email", user.Email));
-
+			
 			var time = DateTime.UtcNow;
 
 			var tokenDescriptor = new SecurityTokenDescriptor

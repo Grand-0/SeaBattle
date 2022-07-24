@@ -60,23 +60,56 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> User(int id, UserBase updateData)
+        public async Task<IActionResult> User(int id, UpdateUserModel updateData)
         {
-            return Ok();
-        }
-
-        [AllowAnonymous]
-        [HttpPost("{id}/img")]
-        public async Task<IActionResult> User(int id, IFormFile file)
-        {
-            var t = HttpContext.Request.Headers["Authorization"];
             try
             {
-                string userLogin = _userService.GetUserById(id).Login;
+                if (updateData.Login != null)
+                {
+                    if (updateData.Email != null)
+                    {
+                        _userService.UpdateUserLoginAndEmail(id, updateData.Login, updateData.Email);
+                    }
+                    else
+                    {
+                        _userService.UpdateUserLogin(id, updateData.Login);
+                    }
+                }
+                else
+                {
+                    if (updateData.Email != null)
+                    {
+                        _userService.UpdateUserEmail(id, updateData.Email);
+                    }
+                    else
+                    {
+                        throw new Exception("All fields has value null!");
+                    }
+                }
+
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            
+        }
+
+        [HttpPost("{id}/img")]
+        public async Task<IActionResult> User(int id, [FromBody]IFormFile file)
+        {
+            try
+            {
+                var identity = HttpContext.User.Identity;
+                string userLogin = TokenHelper.GetClaim(identity, "Name");
+
                 LocalResourceHelper helper = new LocalResourceHelper(_env, _cnf);
                 var path = await helper.SaveResource(file, userLogin);
                 _userService.UpdateUserLogo(id, path.LocalPath);
-                return Ok();
+
+                return Ok(new { pathToLogo = path.FullPath });
             }
             catch(Exception ex)
             {

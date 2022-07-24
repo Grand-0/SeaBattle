@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace API.Resources
 {
@@ -122,12 +123,42 @@ namespace API.Resources
             }
         }
 
-        public List<string> GetOnlineUsers()
+        public List<int> GetOnlineUsersID()
         {
-            List<string> users = new List<string>();
-            foreach(var key in _store.Keys)
+            List<int> users = new List<int>();
+
+            foreach (var key in _store.Keys)
             {
-                users.Add(key);
+                var records = GetUserRecords(key);
+                T id;
+
+                if (records.TryGetValue("UniqueId", out id))
+                {
+                    users.Add(Int32.Parse(id.ToString()));
+                }
+            }
+
+            return users;
+        }
+
+        public List<int> GetOnlineUsersID(string ignoredKey)
+        {
+            List<int> users = new List<int>();
+
+            foreach (var key in _store.Keys)
+            {
+                if (key == ignoredKey)
+                {
+                    continue;
+                }
+
+                var records = GetUserRecords(key);
+                T id;
+
+                if(records.TryGetValue("UniqueId",out id))
+                {
+                    users.Add(Int32.Parse(id.ToString()));
+                }
             }
 
             return users;

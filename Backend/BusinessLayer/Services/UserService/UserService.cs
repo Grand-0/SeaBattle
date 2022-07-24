@@ -3,6 +3,7 @@ using BusinessLayer.Exceptions;
 using BusinessLayer.Models;
 using DataAcessLayer.Repositories;
 using System;
+using System.Collections.Generic;
 using ReducedUserDAL = DataAcessLayer.Models.UserModels.ReducedUser;
 
 namespace BusinessLayer.Services.UserService
@@ -106,6 +107,11 @@ namespace BusinessLayer.Services.UserService
         public void UpdateUserLoginAndEmail(int id, string login, string email)
         {
             _databaseContext.UserRepository.UpdateLoginAndEmail(id, login, email);
+        }
+
+        public List<UserProfile> GetUserProfiles(List<int> ids)
+        {
+            return _mapper.Map<List<UserProfile>>(_databaseContext.UserRepository.GetUserProfiles(ids));
         }
     }
 }

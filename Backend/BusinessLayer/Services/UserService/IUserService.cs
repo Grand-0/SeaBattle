@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Models;
 using System;
+using System.Collections.Generic;
 
 namespace BusinessLayer.Services.UserService
 {
@@ -16,5 +17,6 @@ namespace BusinessLayer.Services.UserService
         void UpdateUserLogin(int id, string login);
         void UpdateUserLogo(int id, string pathToLogo);
         void UpdateUserLoginAndEmail(int id, string login, string email);
+        List<UserProfile> GetUserProfiles(List<int> ids);
     }
 }

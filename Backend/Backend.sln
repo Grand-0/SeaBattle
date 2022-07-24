@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameLib", "GameLib\GameLib.csproj", "{3364B788-94D0-4F3C-96A9-D1133E37A980}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DDED8077-B6FD-47AE-8917-0CDA8D7BE3E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -157,3 +157,11 @@ AS
 	WHERE UserID = @ID
 
 GO
+
+CREATE PROCEDURE GetUserProfiles
+	@ID_List ListIDTableType READONLY
+AS
+	SELECT [Login], Logo FROM Users
+	WHERE UserID in (SELECT ID FROM @ID_List)
+	
+GO

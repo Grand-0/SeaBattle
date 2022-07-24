@@ -14,17 +14,20 @@ using ConfigurationResourcesBL = BusinessLayer.ConfigurationResources;
 using API.Resources;
 using Microsoft.AspNetCore.Http.Connections;
 using System.Text;
+using API.Mapper;
 
 namespace API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment enviroment, IConfiguration configuration)
         {
             Configuration = configuration;
+            WebHostEnvironment = enviroment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,6 +37,7 @@ namespace API
 
             services.AddAutoMapper(cnf => {
                 ConfigurationResourcesBL.RegistrationMapperConfiguration(cnf);
+                ConfigurationResources.RegistrationMapperConfiguration(WebHostEnvironment, Configuration, cnf);
             });
 
             ConfigurationResourcesBL.RegistrationServices(services, Configuration.GetConnectionString("DefaultConnection"));

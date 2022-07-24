@@ -1,5 +1,6 @@
 ﻿using DataAcessLayer.Models.UserModels;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -120,16 +121,16 @@ namespace DataAcessLayer.Repositories.UserRepository
                         {
                             user = new ReducedUser
                             {
-                                UserId = (int?)reader.GetValue(0),
-                                Login = (string)reader.GetValue(1),
-                                PasswordHash = (string)reader.GetValue(2),
-                                PasswordSalt = (Guid)reader.GetValue(3),
-                                Email = (string)reader.GetValue(4)
+                                UserId = reader.GetInt32(0),
+                                Login = reader.GetString(1),
+                                PasswordHash = reader.GetString(2),
+                                PasswordSalt = reader.GetGuid(3),
+                                Email = reader.GetString(4)
                             };
 
                             if (reader.GetValue(5) != DBNull.Value)
                             {
-                                user.UserLogo = (string)reader.GetValue(5);
+                                user.UserLogo = reader.GetString(5);
                             }
                         }
                     }
@@ -171,14 +172,14 @@ namespace DataAcessLayer.Repositories.UserRepository
                         {
                             user = new UserWithStatistic
                             {
-                                UserId = (int?)reader.GetValue(0),
-                                Login = (string)reader.GetValue(1),
-                                PasswordHash = (string)reader.GetValue(2),
-                                PasswordSalt = (Guid)reader.GetValue(3),
-                                Email = (string)reader.GetValue(4),
-                                Battles = (int)reader.GetValue(6),
-                                WinBattles = (int)reader.GetValue(7),
-                                WinRate = (float)reader.GetValue(8)
+                                UserId = reader.GetInt32(0),
+                                Login = reader.GetString(1),
+                                PasswordHash = reader.GetString(2),
+                                PasswordSalt = reader.GetGuid(3),
+                                Email = reader.GetString(4),
+                                Battles = reader.GetInt32(6),
+                                WinBattles = reader.GetInt32(7),
+                                WinRate = reader.GetFloat(8)
                             };
 
                             if (reader.GetValue(5) != DBNull.Value)
@@ -294,16 +295,16 @@ namespace DataAcessLayer.Repositories.UserRepository
                         {
                             user = new ReducedUser
                             {
-                                UserId = (int?)reader.GetValue(0),
-                                Login = (string)reader.GetValue(1),
-                                PasswordHash = (string)reader.GetValue(2),
-                                PasswordSalt = (Guid)reader.GetValue(3),
-                                Email = (string)reader.GetValue(4),
+                                UserId = reader.GetInt32(0),
+                                Login = reader.GetString(1),
+                                PasswordHash = reader.GetString(2),
+                                PasswordSalt = reader.GetGuid(3),
+                                Email = reader.GetString(4),
                             };
 
                             if (reader.GetValue(5) != DBNull.Value)
                             {
-                                user.UserLogo = (string)reader.GetValue(5);
+                                user.UserLogo = reader.GetString(5);
                             }
                         }
                     }
@@ -338,7 +339,7 @@ namespace DataAcessLayer.Repositories.UserRepository
                     {
                         while (reader.Read())
                         {
-                            userId = (int?)reader.GetValue(0);
+                            userId = reader.GetInt32(0);
                         }
                     }
                 }
@@ -454,6 +455,47 @@ namespace DataAcessLayer.Repositories.UserRepository
 
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public List<UserProfile> GetUserProfiles(List<int> ids)
+        {
+            List<UserProfile> profiles = new List<UserProfile>();
+
+            using (SqlConnection connection = new SqlConnection(_sqlConnectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand("GetUserProfiles", connection);
+
+                DataTable data = new DataTable();
+                data.Columns.Add("ID", typeof(int));
+
+                foreach(int id in ids)
+                {
+                    data.Rows.Add(id);
+                }
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ID_List", SqlDbType.Structured);
+                cmd.Parameters["@ID_List"].TypeName = "ListIDTableType";
+                cmd.Parameters["@ID_List"].Value = data;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            profiles.Add(new UserProfile
+                            {
+                                Login = reader.GetString(0),
+                                PathToLogo = reader.GetString(1)
+                            });
+                        }
+                    }
+                }
+            }
+            return profiles;
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace API.Models.Users
 {
-    public class UserRegistration
+    public class UpdateUserModel
     {
         public string Login { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

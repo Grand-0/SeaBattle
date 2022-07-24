@@ -25,8 +25,8 @@ namespace API.Controllers
             _userService = userService;
         }
 
-        [HttpPost("registeration")]
-        public async Task<IActionResult> Registeration([FromForm] UserRegistration user)
+        [HttpPost("registration")]
+        public async Task<IActionResult> Registration([FromForm] UserRegistration user)
         {
             string token = "";
 
@@ -50,7 +50,14 @@ namespace API.Controllers
                             Logo = null
                         });
 
-                        token = _jwtGenerator.CreateToken(user);
+                        var createdUser = _userService.GetUserByLogin(user.Login);
+
+                        token = _jwtGenerator.CreateToken(new UserBase
+                        {
+                            Id = (int)createdUser.Id,
+                            Login = createdUser.Login,
+                            Email = createdUser.Email
+                        });
                     }
                     catch(Exception ex)
                     {
@@ -87,7 +94,13 @@ namespace API.Controllers
 
                 if (_hashService.isHashEquals(password, user.IndividualSalt, user.PasswordHash))
                 {
-                    string token = _jwtGenerator.CreateToken(new UserBase { Login = user.Login, Email = user.Email });
+                    string token = _jwtGenerator.CreateToken(
+                        new UserBase { 
+                            Id = (int)user.Id,
+                            Login = user.Login, 
+                            Email = user.Email }
+                        );
+
                     return Ok(new {
                         access_token = token,
                         user_id = user.Id
