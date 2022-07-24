@@ -1,16 +1,15 @@
 ﻿using DataAcessLayer.Repositories.UserRepository;
 using UserRepo = DataAcessLayer.Repositories.UserRepository.UserRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataAcessLayer.Repositories.NationRepository;
+using NationRepo = DataAcessLayer.Repositories.NationRepository.NationRepository;
 
 namespace DataAcessLayer.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
         private IUserRepository _userRepository;
+        private INationRepository _nationRepository;
+
         private string _connectionString;
 
         public UnitOfWork(string connectionString)
@@ -28,6 +27,19 @@ namespace DataAcessLayer.Repositories
                 }
 
                 return _userRepository;
+            }
+        }
+
+        public INationRepository NationRepository
+        {
+            get
+            {
+                if(_nationRepository == null)
+                {
+                    _nationRepository = new NationRepo(_connectionString);
+                }
+
+                return _nationRepository;
             }
         }
     }

@@ -466,6 +466,7 @@ namespace DataAcessLayer.Repositories.UserRepository
                 connection.Open();
 
                 SqlCommand cmd = new SqlCommand("GetUserProfiles", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 DataTable data = new DataTable();
                 data.Columns.Add("ID", typeof(int));
@@ -475,10 +476,12 @@ namespace DataAcessLayer.Repositories.UserRepository
                     data.Rows.Add(id);
                 }
 
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@ID_List", SqlDbType.Structured);
-                cmd.Parameters["@ID_List"].TypeName = "ListIDTableType";
-                cmd.Parameters["@ID_List"].Value = data;
+                cmd.Parameters.Add(new SqlParameter {
+                    ParameterName = "@ID_List",
+                    SqlDbType =  SqlDbType.Structured,
+                    TypeName = "ListIDTableType",
+                    Value = data
+                });
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
